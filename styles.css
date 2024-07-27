@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .dark-theme {
+    background-color: #333;
+    color: #f0f0f0;
+  }
+  
+  .container {
+    max-width: 800px;
+    width: 90%;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark-theme .container {
+    background-color: #444;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-container input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .input-container button {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .output-container {
+    display: none;
+    margin-bottom: 20px;
+  }
+  
+  .forecast-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .forecast-day {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 40px);
+    box-sizing: border-box;
+  }
+  
+  .dark-theme .forecast-day {
+    background-color: #555;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+  }
+  
+  .controls button,
+  .controls select {
+    padding: 10px;
+    margin: 0 5px;
+  }
+  
+  .theme-toggle {
+    margin-top: 10px;
+  }
+  
+  .chart-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+  }
+  
+  canvas {
+    width: 100% !important;
+    height: 400px !important;
+  }
+  
