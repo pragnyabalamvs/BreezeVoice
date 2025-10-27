@@ -25,6 +25,7 @@ body {
   
   .dark-theme .container {
     background-color: #444;
+   
   }
   
   .input-container {
@@ -69,6 +70,7 @@ body {
   
   .dark-theme .forecast-slot {
     background-color: #555;
+    
   }
   
   .controls {
@@ -91,15 +93,20 @@ body {
     width: 100%;
     max-width: 1200px;
     padding: 20px;
+    color: #f0f0f0;
   }
   
   canvas {
     width: 100% !important;
     height: 400px !important;
+    
   }
-  .dark-theme canvas {
+ 
+.dark-theme canvas {
   background-color: #222;
   border-radius: 8px;
   padding: 10px;
 }
+
+
 
