@@ -93,24 +93,24 @@ function displayWeather(data) {
   const forecastData = data.list.slice(0, 7);
   let weatherSummary = `Weather forecast for ${cityName}: `;
 
-  forecastData.forEach(day => {
-    const date = new Date(day.dt * 1000);
+  forecastData.forEach(slot => {
+    const date = new Date(slot.dt * 1000);
     const dateString = date.toDateString();
     const timeString = date.toLocaleTimeString();
 
-    const dayDiv = document.createElement('div');
-    dayDiv.classList.add('forecast-day');
+    const slotDiv = document.createElement('div');
+    dayDiv.classList.add('forecast-slot');
     dayDiv.innerHTML = `
       <p><strong>Date:</strong> ${dateString}</p>
       <p><strong>Time:</strong> ${timeString}</p>
-      <p><strong>Weather:</strong> ${day.weather[0].description}</p>
-      <p><strong>Temperature:</strong> ${day.main.temp}°C</p>
-      <p><strong>Humidity:</strong> ${day.main.humidity}%</p>
-      <p><strong>Wind Speed:</strong> ${day.wind.speed} m/s</p>
+      <p><strong>Weather:</strong> ${slot.weather[0].description}</p>
+      <p><strong>Temperature:</strong> ${slot.main.temp}°C</p>
+      <p><strong>Humidity:</strong> ${slot.main.humidity}%</p>
+      <p><strong>Wind Speed:</strong> ${slot.wind.speed} m/s</p>
     `;
-    forecastDetails.appendChild(dayDiv);
+    forecastDetails.appendChild(slotDiv);
 
-    weatherSummary += `On ${dateString} at ${timeString}, the weather will be ${day.weather[0].description}, with a temperature of ${day.main.temp} degrees Celsius, humidity at ${day.main.humidity} percent, and wind speed of ${day.wind.speed} meters per second. `;
+    weatherSummary += `On ${dateString} at ${timeString}, the weather will be ${slot.weather[0].description}, with a temperature of ${slot.main.temp} degrees Celsius, humidity at ${slot.main.humidity} percent, and wind speed of ${slot.wind.speed} meters per second. `;
   });
 
   document.querySelector('.output-container').style.display = 'block';
