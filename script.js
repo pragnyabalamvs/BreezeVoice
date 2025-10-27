@@ -119,10 +119,10 @@ function displayWeather(data) {
 }
 
 function displayChart(data) {
-  const labels = data.map(day => new Date(day.dt * 1000).toLocaleTimeString());
-  const temperatures = data.map(day => day.main.temp);
-  const humidities = data.map(day => day.main.humidity);
-  const windSpeeds = data.map(day => day.wind.speed);
+  const labels = data.map(slot => new Date(slot.dt * 1000).toLocaleTimeString());
+  const temperatures = data.map(slot => slot.main.temp);
+  const humidities = data.map(slot => slot.main.humidity);
+  const windSpeeds = data.map(slot => slot.wind.speed);
 
   const ctx = document.getElementById('weatherChart').getContext('2d');
   if (weatherChart) {
