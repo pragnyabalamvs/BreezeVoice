@@ -160,74 +160,90 @@ function displayChart(data) {
       ]
     },
     options: {
-        scales: {
-  yAxes: [
-    {
-      id: 'y-axis-temp',
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: {
+        color: '#333',
+        font: { size: 13 }
+      }
+    },
+    title: {
+      display: true,
+      text: 'Weather Forecast: Temperature, Humidity & Wind Speed',
+      color: '#333',
+      font: { size: 16, weight: 'bold' }
+    }
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Time',
+        color: '#333',
+        font: { size: 14 }
+      },
+      ticks: {
+        color: '#333'
+      }
+    },
+    'y-axis-temp': {
       type: 'linear',
       position: 'left',
-      ticks: {
-        beginAtZero: true,
-        fontColor: 'rgba(255, 99, 132, 1)' // Red for temperature
-      },
-      scaleLabel: {
+      title: {
         display: true,
-        labelString: 'Temperature (°C)',
-        fontColor: 'rgba(255, 99, 132, 1)'
+        text: 'Temperature (°C)',
+        color: 'rgba(255, 99, 132, 1)',
+        font: { size: 13 }
       },
-      gridLines: {
+      ticks: {
+        color: 'rgba(255, 99, 132, 1)',
+        beginAtZero: true
+      },
+      grid: {
         color: 'rgba(255,99,132,0.2)'
       }
     },
-    {
-      id: 'y-axis-humidity',
+    'y-axis-humidity': {
       type: 'linear',
       position: 'right',
-      ticks: {
-        beginAtZero: true,
-        fontColor: 'rgba(54, 162, 235, 1)' // Blue for humidity
-      },
-      scaleLabel: {
+      title: {
         display: true,
-        labelString: 'Humidity (%)',
-        fontColor: 'rgba(54, 162, 235, 1)'
+        text: 'Humidity (%)',
+        color: 'rgba(54, 162, 235, 1)',
+        font: { size: 13 }
       },
-      gridLines: {
+      ticks: {
+        color: 'rgba(54, 162, 235, 1)',
+        beginAtZero: true
+      },
+      grid: {
         drawOnChartArea: false
       }
     },
-    {
-      id: 'y-axis-wind',
+    'y-axis-wind': {
       type: 'linear',
       position: 'right',
-      offset: true, // Adds spacing so it doesn’t overlap humidity axis
-      ticks: {
-        beginAtZero: true,
-        fontColor: 'rgba(75, 192, 192, 1)' // Green for wind
-      },
-      scaleLabel: {
+      offset: true,
+      title: {
         display: true,
-        labelString: 'Wind Speed (m/s)',
-        fontColor: 'rgba(75, 192, 192, 1)'
+        text: 'Wind Speed (m/s)',
+        color: 'rgba(75, 192, 192, 1)',
+        font: { size: 13 }
       },
-      gridLines: {
+      ticks: {
+        color: 'rgba(75, 192, 192, 1)',
+        beginAtZero: true
+      },
+      grid: {
         drawOnChartArea: false
       }
     }
-  ],
-  xAxes: [
-    {
-      ticks: {
-        fontColor: '#333'
-      },
-      scaleLabel: {
-        display: true,
-        labelString: 'Time'
-      }
-    }
-  ]
+  }
 },
-legend: {
+
+  legend: {
   labels: {
     fontColor: '#333'
   }
