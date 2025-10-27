@@ -97,4 +97,9 @@ body {
     width: 100% !important;
     height: 400px !important;
   }
-  
+  .dark-theme canvas {
+  background-color: #222;
+  border-radius: 8px;
+  padding: 10px;
+}
+
