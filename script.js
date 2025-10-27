@@ -27,6 +27,15 @@ document.getElementById('currentCityBtn').addEventListener('click', () => {
 
 document.getElementById('themeToggleCheckbox').addEventListener('change', (event) => {
   document.body.classList.toggle('dark-theme', event.target.checked);
+
+  // Update city name heading immediately
+  const cityHeading = document.getElementById('cityName');
+  cityHeading.style.color = event.target.checked ? '#f0f0f0' : '#333';
+
+  // Refresh chart color instantly
+  if (weatherChart && currentWeatherData) {
+    displayChart(currentWeatherData.list.slice(0, 7));
+  }
 });
 
 document.getElementById('pauseReadingBtn').addEventListener('click', () => {
@@ -85,7 +94,13 @@ async function fetchWeatherData(apiUrl, city = '') {
 
 function displayWeather(data) {
   const cityName = data.city.name;
-  document.getElementById('cityName').innerText = `Weather Forecast for ${cityName}`;
+  const cityNameElement = document.getElementById('cityName');
+
+  cityNameElement.innerText = `Weather Forecast for ${cityName}`;
+
+  // Adjust heading color for dark mode
+  const isDarkTheme = document.body.classList.contains('dark-theme');
+  cityNameElement.style.color = isDarkTheme ? 'rgb(255,255,255)' : '#333';
 
   const forecastDetails = document.getElementById('forecastDetails');
   forecastDetails.innerHTML = '';
@@ -99,8 +114,8 @@ function displayWeather(data) {
     const timeString = date.toLocaleTimeString();
 
     const slotDiv = document.createElement('div');
-    dayDiv.classList.add('forecast-slot');
-    dayDiv.innerHTML = `
+    slotDiv.classList.add('forecast-slot');
+    slotDiv.innerHTML = `
       <p><strong>Date:</strong> ${dateString}</p>
       <p><strong>Time:</strong> ${timeString}</p>
       <p><strong>Weather:</strong> ${slot.weather[0].description}</p>
@@ -126,8 +141,13 @@ function displayChart(data) {
 
   const ctx = document.getElementById('weatherChart').getContext('2d');
   if (weatherChart) {
-    weatherChart.destroy(); // Destroy the old chart instance if it exists
+    weatherChart.destroy();
   }
+
+  // 🌙 Detect theme and set text color accordingly
+  const isDarkTheme = document.body.classList.contains('dark-theme');
+  const textColor = isDarkTheme ? '#f0f0f0' : '#333'; // white for dark, black for light
+
   weatherChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -160,99 +180,96 @@ function displayChart(data) {
       ]
     },
     options: {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      labels: {
-        color: '#333',
-        font: { size: 13 }
-      }
-    },
-    title: {
-      display: true,
-      text: 'Weather Forecast: Temperature, Humidity & Wind Speed',
-      color: '#333',
-      font: { size: 16, weight: 'bold' }
-    }
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Time',
-        color: '#333',
-        font: { size: 14 }
-      },
-      ticks: {
-        color: '#333'
-      }
-    },
-    'y-axis-temp': {
-      type: 'linear',
-      position: 'left',
-      title: {
-        display: true,
-        text: 'Temperature (°C)',
-        color: 'rgba(255, 99, 132, 1)',
-        font: { size: 13 }
-      },
-      ticks: {
-        color: 'rgba(255, 99, 132, 1)',
-        beginAtZero: true
-      },
-      grid: {
-        color: 'rgba(255,99,132,0.2)'
-      }
-    },
-    'y-axis-humidity': {
-      type: 'linear',
-      position: 'right',
-      title: {
-        display: true,
-        text: 'Humidity (%)',
-        color: 'rgba(54, 162, 235, 1)',
-        font: { size: 13 }
-      },
-      ticks: {
-        color: 'rgba(54, 162, 235, 1)',
-        beginAtZero: true
-      },
-      grid: {
-        drawOnChartArea: false
-      }
-    },
-    'y-axis-wind': {
-      type: 'linear',
-      position: 'right',
-      offset: true,
-      title: {
-        display: true,
-        text: 'Wind Speed (m/s)',
-        color: 'rgba(75, 192, 192, 1)',
-        font: { size: 13 }
-      },
-      ticks: {
-        color: 'rgba(75, 192, 192, 1)',
-        beginAtZero: true
-      },
-      grid: {
-        drawOnChartArea: false
-      }
-    }
-  }
-},
-
-  legend: {
-  labels: {
-    fontColor: '#333'
-  }
-},
       responsive: true,
       maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor, // ✅ auto color legend text
+            font: { size: 13 }
+          }
+        },
+        title: {
+          display: true,
+          text: 'Weather Forecast: Temperature, Humidity & Wind Speed',
+          color: textColor, // ✅ chart title color
+          font: { size: 16, weight: 'bold' }
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Time',
+            color: textColor, // ✅ x-axis title color
+            font: { size: 14 }
+          },
+          ticks: {
+            color: textColor // ✅ x-axis labels color
+          },
+          grid: {
+            color: isDarkTheme ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' // ✅ grid contrast
+          }
+        },
+        'y-axis-temp': {
+          type: 'linear',
+          position: 'left',
+          title: {
+            display: true,
+            text: 'Temperature (°C)',
+            color: 'rgba(255, 99, 132, 1)',
+            font: { size: 13 }
+          },
+          ticks: {
+            color: 'rgba(255, 99, 132, 1)',
+            beginAtZero: true
+          },
+          grid: {
+            color: isDarkTheme ? 'rgba(255,99,132,0.2)' : 'rgba(255,99,132,0.1)'
+          }
+        },
+        'y-axis-humidity': {
+          type: 'linear',
+          position: 'right',
+          title: {
+            display: true,
+            text: 'Humidity (%)',
+            color: 'rgba(54, 162, 235, 1)',
+            font: { size: 13 }
+          },
+          ticks: {
+            color: 'rgba(54, 162, 235, 1)',
+            beginAtZero: true
+          },
+          grid: {
+            drawOnChartArea: false
+          }
+        },
+        'y-axis-wind': {
+          type: 'linear',
+          position: 'right',
+          offset: true,
+          title: {
+            display: true,
+            text: 'Wind Speed (m/s)',
+            color: 'rgba(75, 192, 192, 1)',
+            font: { size: 13 }
+          },
+          ticks: {
+            color: 'rgba(75, 192, 192, 1)',
+            beginAtZero: true
+          },
+          grid: {
+            drawOnChartArea: false
+          }
+        }
+      }
     }
   });
 }
+
+
+
 
 function speakWeather(weatherSummary) {
   const language = 'en-US'; // Use the default language for speech synthesis
